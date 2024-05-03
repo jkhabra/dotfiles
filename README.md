@@ -1,1 +1,2 @@
 # dotfiles
+Qtile conf
