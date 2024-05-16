@@ -9,8 +9,8 @@ from qtile_extras.widget.decorations import BorderDecoration
 #from qtile_extras.widget import StatusNotifier
 import colors
 
-#from bar_default2 import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
-from bar_default import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
+from bar_default2 import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
+#from bar_default import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_gruvbox import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_nordic import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_oxide import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
