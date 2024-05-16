@@ -18,9 +18,9 @@ decor_left = {
     "decorations": [
         PowerLineDecoration(
             #path="arrow_left"
-            path="rounded_left"
-            # path="forward_slash"
-            # path="back_slash"
+            #path="rounded_left"
+            path="forward_slash"
+            #path="back_slash"
         )
     ],
 }
@@ -29,9 +29,9 @@ decor_right = {
     "decorations": [
         PowerLineDecoration(
             #path="arrow_right"
-            path="rounded_right"
-            # path="forward_slash"
-            # path="back_slash"
+            #path="rounded_right"
+            path="forward_slash"
+            #path="back_slash"
         )
     ],
 }
@@ -61,7 +61,8 @@ def init_widgets_list():
           widget.CurrentLayoutIcon(
             **decor_left,
             #background="#ffffff.7",
-            background=Gruvbox['gray']+".8",
+            #background=Gruvbox['red']+".7",
+            background='#FF5E5E'+'.7',
             foreground="000000.8",
             padding = 4,
             scale = 0.6
@@ -69,31 +70,46 @@ def init_widgets_list():
         ),
         widget.CurrentLayout(
             **decor_left,
-            background=Gruvbox['gray']+".8",
+            background=Gruvbox['red']+".7",
             foreground="000000.8",
             #foreground = colors[1],
             padding = 5
         ),
+        widget.CheckUpdates(
+            **decor_left,
+            fmt=" {}",
+            background=Gruvbox['red']+".7",
+            foreground="000000.8",
+            distro="Arch_yay",
+            update_interval=900,
+            colour_have_updates=colors[4],
+            colour_no_updates=colors[4],
+        ),
         widget.WindowName(
             **decor_left,
             max_chars=40,
-            background=Gruvbox['blue']+'.2',
+            #background=Gruvbox['blue']+'.2',
             #background=Color2+".4",
             foreground = colors[6],
-            #width=400,
+            width=400,
             padding=5
         ),
-        #widget.Spacer(),
         # widget.Spacer(
         #     length=8
         # ),
-        # widget.TextBox(
-        #     **decor_right,
-        #     background="#000000.3"      
-        # ), 
+        widget.Spacer(**decor_left),
+        widget.Clock(
+            **decor_right,
+            padding=10,        
+            background=Gruvbox['shade5'],
+            #foreground = colors[4],
+            format = "⏱  %a, %b %d - %I:%M:%S %p",
+        ),
+        widget.Spacer(**decor_right),
         widget.Net(
             **decor_right,
-            background=Gruvbox['red']+".7",
+            #background='#303F9F'+'.8',
+            background=Gruvbox['shade1'],
             #foreground = colors[1],
             format='{down:.0f}{down_suffix} ↓↑',
             padding=10
@@ -102,13 +118,13 @@ def init_widgets_list():
             **decor_right,
             format = ' {load_percent}%',
             #foreground = colors[4],
-            background=Gruvbox['dark-green']+".7",
-            padding=10,        
+            background=Gruvbox['shade2'],
+            padding=10,
         ),
          widget.Memory(
             **decor_right,
-            padding=10,        
-            background=Gruvbox['aqua']+".7",
+            padding=10,
+            background=Gruvbox['shade3'],
             mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(myTerm + ' -e htop')},
             measure_mem='M',
             format = '{MemUsed: .0f}{mm}',
@@ -116,38 +132,32 @@ def init_widgets_list():
         ),
         widget.DoNotDisturb(
             **decor_right,
-            padding=10,        
-            background=Gruvbox['yellow']+".7",
+            padding=10,
+            background=Gruvbox['shade4'],
             #foreground = colors[3],
             disabled_icon = '',
             enabled_icon = '',
         ),
         widget.Volume(
             **decor_right,
-            padding=10,        
-            background=Gruvbox['dark-blue']+".7",
+            padding=10,
+            background=Gruvbox['shade5'],
             fmt = ' {}',
         ),
         widget.Volume(
             **decor_right,
-            padding=10,        
-            background=Gruvbox['blue']+".7",
+            padding=10,
+            background=Gruvbox['shade6'],
             channel='Capture',
             #foreground = colors[7],
             fmt = ' {}',
         ),
-        widget.Clock(
-            **decor_right,
-            padding=10,        
-            background=Gruvbox['dark-purple']+".7",
-            #foreground = colors[4],
-            format = "⏱  %a, %b %d - %I:%M:%S %p",
-        ),
         widget.Battery(
             #**decor_right,
             **decor_left,
-            padding=10,        
-            background=Gruvbox['dark-gray']+".7",
+            padding=10,
+            background=Gruvbox['shade7'],
+            #background=Gruvbox['shade8']+".3",
             foreground = colors[1],
             # fmt = '🔋: {}',
             format = '{char} {percent:2.0%}',
@@ -164,6 +174,7 @@ def init_widgets_list():
             ),
         widget.Spacer(length = 5),
     ]
+
     return widgets_list
 
 
