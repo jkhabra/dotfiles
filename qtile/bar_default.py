@@ -86,9 +86,16 @@ def init_widgets_list():
             padding = 4,
             scale = 0.6
         ),
-        widget.CurrentLayout(
-            foreground = colors[1],
-            padding = 5
+        # widget.CurrentLayout(
+        #     foreground = colors[1],
+        #     padding = 5
+        # ),
+        widget.CheckUpdates(
+            fmt=" {}",
+            distro="Arch_yay",
+            update_interval=900,
+            colour_have_updates=colors[4],
+            colour_no_updates=colors[4],
         ),
         widget.TextBox(
             text = '|',
@@ -102,6 +109,18 @@ def init_widgets_list():
             foreground = colors[6],
             max_chars = 40
         ),
+        widget.Spacer(),
+        widget.Clock(
+            foreground = colors[4],
+            format = "⏱  %a, %b %d - %I:%M:%S %p",
+            decorations=[
+                BorderDecoration(
+                    colour = colors[4],
+                    border_width = [0, 0, 2, 0],
+                )
+            ],
+        ),
+        widget.Spacer(),
         widget.Spacer(length = 8),
         widget.Net(
             foreground = colors[1],
@@ -169,17 +188,6 @@ def init_widgets_list():
             decorations=[
                 BorderDecoration(
                     colour = colors[7],
-                    border_width = [0, 0, 2, 0],
-                )
-            ],
-        ),
-        widget.Spacer(length = 8),
-        widget.Clock(
-            foreground = colors[4],
-            format = "⏱  %a, %b %d - %I:%M:%S %p",
-            decorations=[
-                BorderDecoration(
-                    colour = colors[4],
                     border_width = [0, 0, 2, 0],
                 )
             ],
