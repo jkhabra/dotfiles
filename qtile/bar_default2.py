@@ -39,6 +39,11 @@ decor_right = {
 c = "#282c34"
 def init_widgets_list():
     widgets_list = [
+        widget.Spacer(
+            **decor_right,
+            background=Gruvbox['red'],
+            length= 3
+        ),
         widget.GroupBox(
             **decor_left,
             fontsize = 11,
@@ -63,14 +68,14 @@ def init_widgets_list():
             #background="#ffffff.7",
             #background=Gruvbox['red']+".7",
             background='#FF5E5E'+'.7',
-            foreground="000000.8",
+            #foreground="000000.8",
             padding = 4,
-            scale = 0.6
-            #foreground = colors[1],
+            scale = 0.6,
+            foreground = colors[1],
         ),
         widget.CurrentLayout(
             **decor_left,
-            background=Gruvbox['red']+".7",
+            background='#FF5E5E'+'.7',
             foreground="000000.8",
             #foreground = colors[1],
             padding = 5
@@ -78,7 +83,6 @@ def init_widgets_list():
         widget.CheckUpdates(
             **decor_left,
             fmt=" {}",
-            background=Gruvbox['red']+".7",
             foreground="000000.8",
             distro="Arch_yay",
             update_interval=900,
@@ -91,21 +95,25 @@ def init_widgets_list():
             #background=Gruvbox['blue']+'.2',
             #background=Color2+".4",
             foreground = colors[6],
-            width=400,
-            padding=5
+            width=555,
+            padding=5,
+            background="#08080c99",
         ),
         # widget.Spacer(
-        #     length=8
+        #     **decor_right,
+        #     foreground="#08080c99",
         # ),
-        widget.Spacer(**decor_left),
         widget.Clock(
-            **decor_right,
-            padding=10,        
+            **decor_left,
+            padding=10,
             background=Gruvbox['shade5'],
             #foreground = colors[4],
             format = "⏱  %a, %b %d - %I:%M:%S %p",
         ),
-        widget.Spacer(**decor_right),
+        widget.Spacer(
+            **decor_right,
+            foreground="#08080c99",
+        ),
         widget.Net(
             **decor_right,
             #background='#303F9F'+'.8',
@@ -152,13 +160,20 @@ def init_widgets_list():
             #foreground = colors[7],
             fmt = ' {}',
         ),
+        # widget.Clock(
+        #     **decor_right,
+        #     padding=10,
+        #     background=Gruvbox['shade7'],
+        #     #foreground = colors[4],
+        #     format = "⏱  %a, %b %d - %I:%M:%S %p",
+        # ),
         widget.Battery(
             #**decor_right,
             **decor_left,
             padding=10,
             background=Gruvbox['shade7'],
             #background=Gruvbox['shade8']+".3",
-            foreground = colors[1],
+            #foreground = colors[1],
             # fmt = '🔋: {}',
             format = '{char} {percent:2.0%}',
             ging_char=' ',
@@ -167,12 +182,15 @@ def init_widgets_list():
             empty_char='',
             full_char='',
         ),
-        widget.Spacer(length = 5),
         widget.Systray(
-            **decor_left,
+            **decor_right,
+            background=Gruvbox['shade8'],
             padding = 3
             ),
-        widget.Spacer(length = 5),
+        widget.Spacer(
+            background=Gruvbox['red'],
+            length= 5
+        ),
     ]
 
     return widgets_list
@@ -195,7 +213,7 @@ size = 27
 padding = 15
 opacity = 0.9
 border_width = [0, 0, 0, 0]
-margin = [0,0,0,0]
+margin = [0,3,0,3]
 
 
 def init_screens():
