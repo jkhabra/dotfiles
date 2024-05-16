@@ -141,6 +141,24 @@ Gruvbox = {
     'aqua':         '#8ec07c',
     'dark-gray':    '#928374',
     'gray':         '#a89984',
+    'shade1': '#1A237E',
+    'shade2': '#283593',
+    'shade3': '#303F9F',
+    'shade4': '#3949AB',
+    'shade5': '#3F51B5',
+    'shade6': '#5C6BC0',
+    'shade7': '#7986CB',
+    'shade8': '#9FA8DA',
+
+    # 'shade1': '#FFEBEB',
+    # 'shade2': '#FFC9C9',
+    # 'shade3': '#FFA5A5',
+    # 'shade4': '#FF7F7F',
+    # 'shade5': '#FF5E5E',
+    # 'shade6': '#FF3D3D',
+    # 'shade7': '#FF1C1C',
+    # 'shade8': '#FF0000',
+
 }
 ###-----------Nordic-----------------###
 ###----------------------------------###
