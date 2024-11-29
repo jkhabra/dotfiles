@@ -1,24 +1,23 @@
 import os
 import subprocess
 from libqtile import bar, extension, hook, layout, qtile, widget
-from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
+from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen, ScratchPad, DropDown
 from libqtile.lazy import lazy
 # Make sure 'qtile-extras' is installed or this config will not work.
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 #from qtile_extras.widget import StatusNotifier
 import colors
-
-from bar_default2 import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
-#from bar_default import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
+#from bar_default2 import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
+from bar_default import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_gruvbox import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_nordic import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 #from bar_oxide import init_widgets_list, init_screens, init_widgets_screen1, init_widgets_screen2
 
 mod = "mod4"              # Sets mod key to SUPER/WINDOWS
 myTerm = "alacritty"      # My terminal of choice
-myBrowser = "firefox"       # My browser of choice
-myEmacs = "emacsclient -c -a 'emacs' " # The space at the end is IMPORTANT!
+myBrowser = "zen-browser"       # My browser of choice
+myEmacs = "emacs" # The space at the end is IMPORTANT!
 bgchange = "feh --bg-fill --randomize /home/j/wallpapers/"
 screenshot = "flameshot"
 
@@ -44,6 +43,7 @@ def maximize_by_switching_layout(qtile):
     elif current_layout_name == 'max':
         qtile.current_group.layout = 'monadtall'
 
+
 keys = [
     # The essentials
     Key([mod], "Return", lazy.spawn(myTerm), desc="Terminal"),
@@ -56,18 +56,19 @@ keys = [
     Key([mod, "shift"], "c", lazy.spawn("dm-logout -r"), desc="Logout menu"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-   # change to spasific layout
-   Key([mod], "e", lazy.group.setlayout("monadtall"), desc="go to monadtall layout"),
-   Key([mod], "w", lazy.group.setlayout("max"), desc="go to max layout"),
-   Key([mod], "z", lazy.group.setlayout("zoomy"), desc="go to max layout"),
+    # change to spasific layout
+    Key([mod], "e", lazy.group.setlayout("monadtall"), desc="go to monadtall layout"),
+    Key([mod], "w", lazy.group.setlayout("max"), desc="go to max layout"),
+    #Key([mod], "z", lazy.group.setlayout("treetab"), desc="go to max layout"),
 
+    #ScratchPad keybindings
+    Key([mod], "c", lazy.group['scratchpad'].dropdown_toggle('ranger'), "Toogle ranger scratchpad"),
+    Key([mod], "x", lazy.group['scratchpad'].dropdown_toggle('term'), "Toogle terminal scratchpad"),
 
     # change wallpaper randomize
-    Key([mod], "v",
-        lazy.spawn(bgchange),
-        # lazy.screen.set_wallpaper('/home/shatterstone/.config/qtile/wall.jpg', mode='fill'), # not working
-        desc='random wallpaper'
-        ),
+    #Key([mod], "v", lazy.spawn(home + ".config/qtile/scripts/wallpaper.sh"), desc="Update Theme and Wallpaper"),
+    Key([mod], "v", lazy.spawn(bgchange),desc='random wallpaper'),
+
     Key([mod, "shift"], "s",
         lazy.spawn(screenshot),
         desc='Screenshot'
@@ -176,16 +177,17 @@ keys = [
         Key([], "s", lazy.spawn("dm-websearch -r"), desc='Search various engines'),
         Key([], "t", lazy.spawn("dm-translate -r"), desc='Translate text')
     ])
+
 ]
 
 groups = []
 group_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
 
 group_labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9",]
-#group_labels = ["DEV", "WWW", "SYS", "DOC", "VBOX", "CHAT", "MUS", "VID", "GFX",]
-#group_labels = ["", "", "", "", "", "", "", "", "",]
-
-group_layouts = ["monadtall", "monadtall", "tile", "tile", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
+group_labels = ["DEV", "CODE", "TER", "CHAT", "SYS", "DOC", "VBOX", "MUS", "VID",]
+#group_labels = ["", "",  "", "", "", "", "", "", "",]
+#group_labels = ["", "", "", "",  "", "", "", "", "", ""]
+group_layouts = ["monadtall", "treetab", "monadtall", "treetab", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall"]
 
 for i in range(len(group_names)):
     groups.append(
@@ -194,7 +196,7 @@ for i in range(len(group_names)):
             layout=group_layouts[i].lower(),
             label=group_labels[i],
         ))
- 
+
 for i in groups:
     keys.extend(
         [
@@ -231,41 +233,50 @@ layouts = [
     #layout.Matrix(**layout_theme),
     layout.MonadTall(**layout_theme),
     #layout.MonadWide(**layout_theme),
-    layout.Tile(
-         shift_windows=True,
-         border_width = 0,
-         margin = 0,
-         ratio = 0.335,
-         ),
+    # layout.Tile(
+    #      shift_windows=True,
+    #      border_width = 0,
+    #      margin = 0,
+    #      ratio = 0.335,
+    #      ),
     layout.Max(
          border_width = 0,
          margin = 0,
          ),
     #layout.Stack(**layout_theme, num_stacks=2),
     #layout.Columns(**layout_theme),
-    #layout.TreeTab(
-    #     font = "Ubuntu Bold",
-    #     fontsize = 11,
-    #     border_width = 0,
-    #     bg_color = colors[0],
-    #     active_bg = colors[8],
-    #     active_fg = colors[2],
-    #     inactive_bg = colors[1],
-    #     inactive_fg = colors[0],
-    #     padding_left = 8,
-    #     padding_x = 8,
-    #     padding_y = 6,
-    #     sections = ["ONE", "TWO", "THREE"],
-    #     section_fontsize = 10,
-    #     section_fg = colors[7],
-    #     section_top = 15,
-    #     section_bottom = 15,
-    #     level_shift = 8,
-    #     vspace = 3,
-    #     panel_width = 240
-    #     ),
-    layout.Zoomy(**layout_theme), 
+    layout.TreeTab(
+         font = "Ubuntu Bold",
+         fontsize = 11,
+         border_width = 0,
+         bg_color = '#1751B457',
+         active_bg = colors[8],
+         active_fg = colors[2],
+         inactive_bg = colors[1],
+         inactive_fg = colors[0],
+         padding_left = 3,
+         padding_x = 2,
+         padding_y = 5,
+         sections = ["ONE", "TWO"],
+         # sections = ["ONE", "TWO", "THREE"],
+         place_right = 'true',
+         section_fontsize = 8,
+         section_fg = colors[7],
+         section_top = 15,
+         section_bottom = 15,
+         level_shift = 10,
+         vspace = 10,
+         panel_width = 45
+         ),
+    #layout.Zoomy(**layout_theme), 
 ]
+
+#Define scratchpads
+groups.append(ScratchPad("scratchpad", [
+    DropDown('ranger', 'alacritty --class=ranger -e ranger', width=0.8, height=0.8, x=0.1, y=0.1, opacity=0.9),
+    DropDown('term', 'alacritty --class=scratch', width=0.8, height=0.8, x=0.1, y=0.1, opacity=0.9),
+]))
+
 
 if __name__ in ["config", "__main__"]:
     screens = init_screens()
@@ -299,6 +310,17 @@ def switch_screens(qtile):
     i = qtile.screens.index(qtile.current_screen)
     group = qtile.screens[i - 1].group
     qtile.current_screen.set_group(group)
+
+# Define the function to change the wallpaper
+def change_wallpaper():
+    wallpaper_dir = os.path.expanduser('~/wallpapers/')
+    subprocess.run(['feh', '--bg-fill', '--randomize', wallpaper_dir])
+    #subprocess.run(['feh', '--bg-fill', '--randomize', os.path.expanduser('~') + '/wallpapers/'])
+    #os.system('feh --bg-fill --randomize /home/j/wallpapers/')
+
+# This function sets up the timer to change wallpaper every 60 seconds
+def setup_timer():
+    hook.add_timer(60, change_wallpaper)
 
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
@@ -355,6 +377,22 @@ wl_input_rules = None
 def start_once():
     home = os.path.expanduser('~')
     subprocess.call([home + '/.config/qtile/autostart.sh'])
+    # Call the function initially to set a wallpaper when Qtile starts
+    change_wallpaper()
+    # Setup the timer for periodic wallpaper changes
+    #setup_timer()
+
+    # Open applications and assign to specific workspaces with delays
+    qtile.groups["1"].cmd_toscreen()
+    subprocess.Popen([myBrowser])  # Launch browser on workspace 1
+    time.sleep(1)  # Add a delay to ensure the app opens fully
+
+    qtile.groups["2"].cmd_toscreen()
+    subprocess.Popen([myEmacs])    # Launch Emacs on workspace 2
+    time.sleep(3)
+
+    qtile.groups["3"].cmd_toscreen()
+    subprocess.Popen([myTerm])     # Launch terminal on workspace 3
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
