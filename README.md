@@ -12,7 +12,7 @@ Install Qtile and other dependencies.
 ### For Arch Linux
 All software, one command:
 ```bash
-  yay -S qtile qtile-extras picom rofi feh alacritty bat playerctl dunst python-dbus-next ranger flameshot htop transmission-gtk zsh starship
+  yay -S qtile qtile-extras picom rofi feh alacritty bat playerctl dunst ttf-font-awesome ranger flameshot htop transmission-gtk zsh starship
 ```
 
 ### Setup
