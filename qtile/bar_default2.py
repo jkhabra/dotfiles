@@ -18,8 +18,8 @@ decor_left = {
     "decorations": [
         PowerLineDecoration(
             #path="arrow_left"
-            #path="rounded_left"
-            path="forward_slash"
+            path="rounded_left"
+            #path="forward_slash"
             #path="back_slash"
         )
     ],
@@ -29,8 +29,8 @@ decor_right = {
     "decorations": [
         PowerLineDecoration(
             #path="arrow_right"
-            #path="rounded_right"
-            path="forward_slash"
+            path="rounded_right"
+            #path="forward_slash"
             #path="back_slash"
         )
     ],
@@ -41,7 +41,7 @@ def init_widgets_list():
     widgets_list = [
         widget.Spacer(
             **decor_right,
-            background=Gruvbox['red'],
+            background=Gruvbox['shade3'],
             length= 3
         ),
         widget.GroupBox(
@@ -52,7 +52,7 @@ def init_widgets_list():
             padding_y = 0,
             padding_x = 1,
             borderwidth = 3,
-            active = colors[8],
+            active = colors[1],
             inactive = colors[1],
             rounded = False,
             hide_unused = True,
@@ -65,17 +65,17 @@ def init_widgets_list():
         ),
           widget.CurrentLayoutIcon(
             **decor_left,
-            #background="#ffffff.7",
-            #background=Gruvbox['red']+".7",
-            background='#FF5E5E'+'.7',
+            #background='#FF5E5E'+'.7',
             #foreground="000000.8",
+            background=Gruvbox['shade5'],
             padding = 4,
             scale = 0.6,
             foreground = colors[1],
         ),
         widget.CurrentLayout(
             **decor_left,
-            background='#FF5E5E'+'.7',
+            background=Gruvbox['shade5'],
+            #background='#FF5E5E'+'.7',
             foreground="000000.8",
             #foreground = colors[1],
             padding = 5
@@ -91,18 +91,17 @@ def init_widgets_list():
         ),
         widget.WindowName(
             **decor_left,
-            max_chars=40,
+            max_chars=50,
             #background=Gruvbox['blue']+'.2',
             #background=Color2+".4",
             foreground = colors[6],
-            width=555,
             padding=5,
             background="#08080c99",
         ),
-        # widget.Spacer(
-        #     **decor_right,
-        #     foreground="#08080c99",
-        # ),
+        widget.Spacer(
+            **decor_right,
+            foreground="#08080c99",
+        ),
         widget.Clock(
             **decor_left,
             padding=10,
@@ -183,12 +182,12 @@ def init_widgets_list():
             full_char='',
         ),
         widget.Systray(
-            **decor_right,
+            **decor_left,
             background=Gruvbox['shade8'],
             padding = 3
             ),
         widget.Spacer(
-            background=Gruvbox['red'],
+            background=Gruvbox['shade3'],
             length= 5
         ),
     ]
@@ -209,11 +208,11 @@ def init_widgets_screen2():
 # For adding transparency to your bar, add (background="#00000000") to the "Screen" line(s)
 # For ex: Screen(top=bar.Bar(widgets=init_widgets_screen2(), background="#00000000", size=24)),
 background = '#08080c99'
-size = 27
+size = 28
 padding = 15
 opacity = 0.9
 border_width = [0, 0, 0, 0]
-margin = [0,3,0,3]
+margin = [0,0,0,0]
 
 
 def init_screens():
